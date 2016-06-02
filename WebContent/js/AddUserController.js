@@ -12,8 +12,10 @@ petSupplies.controller("AddUserController", function AddUserController(
 			$http.post($rootScope.webserviceuri + "/user",
 					data.createUserObject(user)).success(function(response) {
 				console.log(response);
-				if (response)
+				if (response) {
 					$scope.message = "User Registered Successfully!";
+					$scope.addUserForm.$setPristine();
+				}
 
 			}).error(function(data, status, headers, config) {
 				console.log(status);
@@ -29,6 +31,7 @@ petSupplies.controller("AddUserController", function AddUserController(
 				userId : user.userId,
 				userName : user.userName,
 				password : user.password,
+				role : 'USER',
 				address : {
 					userId : user.userId,
 					address : user.address.address,
@@ -58,6 +61,7 @@ petSupplies.controller("AddUserController", function AddUserController(
 			userId : '',
 			userName : '',
 			password : '',
+			role : '',
 			address : {
 				userId : '',
 				address : '',

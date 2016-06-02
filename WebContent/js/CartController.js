@@ -8,6 +8,11 @@ petSupplies.controller('CartController', function($rootScope, $scope,
 
 	
 	$scope.removeFromCart = function(userProdCode) {
+		deleteFromCart(userProdCode);
+			
+	};
+	
+	var deleteFromCart = function(userProdCode) {
 		$http.delete(cartUri + userProdCode).success(function(data) {
 			
 			if (data) {
@@ -79,15 +84,43 @@ petSupplies.controller('CartController', function($rootScope, $scope,
 					productPrice : product.productPrice,
 					quantity : product.quantity
 				};
+			},
+			createOrder : function(product) {
+				return {
+					orderId : '',
+					userId : product.userId,
+					totalPrice : product.productPrice *  product.quantity ,
+					productPrice : product.productPrice,
+					productCode : product.productCode,
+					quantity : product.quantity
+				};
 			}
 
 		};
 	
-	$scope.checkout = function(cartItems){
+	$scope.placeOrder = function(cartItems){
 		
-		console.log("proceeding to checkout");
-		$location.path('/checkout');
+		console.log('inside place order');
+		
+		for (var i = 0; i < cartItems.length; i++) {
+			
+			var product = cartItems[i];
+
+			$http.post($rootScope.webserviceuri + '/order', data.createOrder(product)).success(function(data) {
+				console.log('placing order ' + product);
+				if (data) {
+					console.log('order placed orderId: ' + data.orderId);
+				}
+			}).error(function(data, status, headers, config) {
+				console.log(status);
+			});
+			
+		}
+	
+		fetchAllItems();
+		$location.path('/order');
 		
 	};
-
-});
+	
+	
+	});

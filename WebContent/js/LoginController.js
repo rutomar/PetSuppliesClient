@@ -15,10 +15,9 @@ petSupplies.controller('LoginController', function LoginController($rootScope,
 					createLoggedInUserObject(data);
 					console.log('success');
 					$location.path('/product');
-					//getCartItems($scope.userId);
 
 				} else {
-
+					$scope.message = 'Invalid Credentials.';
 					console.log('failed');
 				}
 
@@ -29,20 +28,6 @@ petSupplies.controller('LoginController', function LoginController($rootScope,
 		}
 	};
 
-	/*var getCartItems = function(userId) {
-
-		$http.get($rootScope.webserviceuri + '/cart/' + userId).success(
-				function(data) {
-					console.log(data);
-					if (data) {
-						$rootScope.cartItems = data;
-					}
-				}).error(function(data, status, headers, config) {
-			console.log(status);
-		});
-
-	};
-*/
 	function createLoggedInUserObject(data) {
 		$rootScope.activeUser = {
 			userId : data.userId,

@@ -5,8 +5,8 @@
 	<p>Search product</p>
 	<form class="form-inline">
 		<input type="text" class="form-control" size="50"
-			placeholder="Type Product ID" required>
-		<button type="button" class="btn btn-danger">Search</button>
+			placeholder="Type Product ID" ng-change="searchProduct(searchText)" ng-model="searchText" required>
+		<!-- <button type="button" class="btn btn-danger" ng-click="searchProduct(searchText)">Search</button> -->
 	</form>
 </div>
 

@@ -18,8 +18,8 @@ petSupplies.config(function($routeProvider, $locationProvider) {
 	}).when('/cart', {
 		templateUrl : 'templates/cart.html',
 		controller : 'CartController'
-	}).when('/checkout', {
-		templateUrl : 'templates/checkout.html',
+	}).when('/order', {
+		templateUrl : 'templates/order.html',
 		controller : 'CheckoutController'
 	});
 

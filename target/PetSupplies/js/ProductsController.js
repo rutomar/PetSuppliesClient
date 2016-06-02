@@ -26,6 +26,7 @@ petSupplies.controller('ProductsController', function($rootScope, $scope,
 									+ $rootScope.activeUser.userId)
 							$scope.fetchAllItems($rootScope.activeUser.userId);
 							$window.alert($scope.message);
+							$location.path("/product");
 						}
 
 					}).error(function(data, status, headers, config) {
@@ -66,4 +67,32 @@ petSupplies.controller('ProductsController', function($rootScope, $scope,
 
 	};
 
+	$scope.searchProduct = function(productName) {
+
+		if (productName) {
+			$http.get(
+					$rootScope.webserviceuri + '/product/productName/'
+							+ productName).success(function(data) {
+				$rootScope.products = data;
+				console.log('Products found.');
+			}).error(function() {
+				console.error('Error while fetching products');
+			});
+
+		} else {
+
+			// get all products
+			$http.get($rootScope.webserviceuri + '/product').success(
+					function(data) {
+						$rootScope.products = data;
+						console.log('Products found.');
+					}).error(function() {
+				console.error('Error while fetching products');
+			});
+
+		}
+
+		console.log('navigating to product');
+		$location.path("/product");
+	}
 });
